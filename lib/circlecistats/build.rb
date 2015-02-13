@@ -17,12 +17,12 @@ module CircleCIStats
                       "build_url"]
 
     def initialize(build_data)
-      set_readers
+      set_accessors
       DESIRED_PARAMS.each { |param| instance_variable_set("@#{param}", build_data[param]) }
     end
 
-    def set_readers
-      DESIRED_PARAMS.each { |param| self.class.send(:attr_reader, param) }
+    def set_accessors
+      DESIRED_PARAMS.each { |param| self.class.send(:attr_accessor, param) }
     end
   end
 end

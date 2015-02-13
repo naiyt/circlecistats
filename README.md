@@ -13,7 +13,7 @@ end
 
 CircleCIStats.run_stats
 puts CircleCIStats.stats.average_build_time # In minutes
-puts CircleCIStats.stats.num_branches
+puts CircleCIStats.stats.branch_data
 puts CircleCIStats.stats.longest_build_time
 puts CircleCIStats.stats.shortest_build_time
 ```
