@@ -1,0 +1,2 @@
+class CircleCIStats
+end
