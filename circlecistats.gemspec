@@ -9,4 +9,6 @@ Gem::Specification.new do |gem|
   gem.email = 'nate@natecollings.com'
   gem.homepage = 'https://github.com/naiyt/circlecistats'
   gem.license = 'MIT'
+
+  gem.add_dependency 'circleci'
 end
