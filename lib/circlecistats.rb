@@ -20,7 +20,7 @@ module CircleCIStats
   end
 
   def self.run_stats
-    stats.average_build_time
+    stats
   end
 
   def self.stats
