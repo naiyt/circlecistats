@@ -1,44 +1,30 @@
 require 'circleci'
+require 'circlecistats/client'
+require 'circlecistats/config'
+require 'circlecistats/build'
+require 'circlecistats/stats'
 
 module CircleCIStats
 
   def self.configure
     yield config
-    client = Client.new(config.token, config.repository, config.username)
-  end
-
-  def self.client=(client)
-    @client = client
-  end
-
-  def self.client
-    @client
+    @client = CircleCIStats::Client.new(config.token, config.repository, config.username)
   end
 
   def self.config
     @config ||= Config.new
   end
 
-  def self.get_builds
-    client.get_builds
+  def self.builds
+    @builds ||= @client.get_builds.body.map { |build| CircleCIStats::Build.new(build) }
   end
 
-  class Config
-    attr_accessor :token, :repository, :username
+  def self.run_stats
+    stats.average_build_time
   end
 
-  class Client
-    def initialize(token, repo, username)
-      @repo = repo
-      @username = username
-      CircleCi.configure do |config|
-        config.token = token
-      end
-    end
-
-    def get_builds
-      CircleCi::Project.recent_builds(@username, @repo)
-    end
+  def self.stats
+    @stats ||= CircleCIStats::Stats.new(builds)
   end
 
 end
